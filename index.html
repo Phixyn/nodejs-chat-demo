@@ -8,9 +8,9 @@
         form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
         form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
         form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-        #messages { list-style-type: none; margin: 0; padding: 0; }
-        #messages li { padding: 5px 10px; }
-        #messages li:nth-child(odd) { background: #eee; }
+        #messagesDisplay { list-style-type: none; margin: 0; padding: 0; }
+        #messagesDisplay li { padding: 5px 10px; }
+        #messagesDisplay li:nth-child(odd) { background: #eee; }
         </style>
     </head>
     <body>
@@ -23,6 +23,22 @@
         <script src="/socket.io/socket.io.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script>
+            // Timestamp bla
+            function timestamp() {
+                var now = new Date();
+                var time = [now.getHours(), now.getMinutes(), now.getSeconds()];
+
+                // If hours, minutes or seconds are less than 10, add a zero in front
+                for (var i = 0; i < 3; i++) {
+                    if (time[i] < 10) {
+                        time[i] = "0" + time[i];
+                    }
+                }
+
+                // Return the formatted string
+                return '[' + time.join(":") + "]";
+            }
+
             var socket = io();
 
             $('form').submit(function() {
@@ -36,7 +52,7 @@
             });
 
             socket.on('chat_message', function(data) {
-                $('#messagesDisplay').append($('<li>').text(data.uname + ': ' + data.msg));
+                $('#messagesDisplay').append($('<li>').text(timestamp() + ' ' + data.uname + ': ' + data.msg));
             });
         </script>
     </body>
