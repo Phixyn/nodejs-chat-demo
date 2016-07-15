@@ -14,9 +14,10 @@
         </style>
     </head>
     <body>
-        <ul id="messages"></ul>
+        <ul id="messagesDisplay"></ul>
         <form action="">
-            <input id="m" autocomplete="off" /><button>Send</button>
+            <input id="user" />
+            <input id="message" autocomplete="off" /><button>Send</button>
         </form>
 
         <script src="/socket.io/socket.io.js"></script>
@@ -25,13 +26,17 @@
             var socket = io();
 
             $('form').submit(function() {
-                socket.emit('chat message', $('#m').val());
-                $('#m').val('');
+                var data = {
+                    uname: $('#user').val(),
+                    msg: $('#message').val()
+                };
+                socket.emit('chat_message', data);
+                $('#message').val('');
                 return false;
             });
 
-            socket.on('chat message', function(msg) {
-                $('#messages').append($('<li>').text(msg));
+            socket.on('chat_message', function(data) {
+                $('#messagesDisplay').append($('<li>').text(data.uname + ': ' + data.msg));
             });
         </script>
     </body>
