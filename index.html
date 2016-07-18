@@ -20,10 +20,12 @@
             <input id="message" autocomplete="off" /><button>Send</button>
         </form>
 
+        <script src="/js/util.js"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script>
             // Timestamp bla
+			/*
             function timestamp() {
                 var now = new Date();
                 var time = [now.getHours(), now.getMinutes(), now.getSeconds()];
@@ -37,7 +39,7 @@
 
                 // Return the formatted string
                 return '[' + time.join(":") + "]";
-            }
+            }*/
 
             var socket = io();
 
