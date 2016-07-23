@@ -1,35 +1,52 @@
 <!doctype html>
 <html>
-    <head>
-        <title>Socket.IO chat</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-    <body>
-		<ul id="messagesDisplay"></ul>
-        <form action="">
-            <input id="user" />
-            <input id="message" autocomplete="off" /><button>Send</button>
-        </form>
+<head>
+	<title>Socket.IO chat</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	
+	<div id="login-wrapper">
+		
+	</div> <!-- #login-wrapper -->
 
-        <script src="/js/util.js"></script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-        <script>
-            var socket = io();
+	<div id="content-wrapper">
+		<div id="chat-box">
+			<ul id="messagesDisplay"></ul>
+			<form action="">
+				<input id="user" />
+				<input id="message" autocomplete="off" />
+				<button>Send</button>
+			</form>
+		</div> <!-- #chat-box -->
+		
+		<div id="user-list">
 
-            $('form').submit(function() {
-                var data = {
-                    uname: $('#user').val(),
-                    msg: $('#message').val()
-                };
-                socket.emit('chat_message', data);
-                $('#message').val('');
-                return false;
-            });
+		</div> <!-- #user-list -->
+	</div> <!-- #content-wrapper -->
 
-            socket.on('chat_message', function(data) {
-                $('#messagesDisplay').append($('<li>').text(timestamp() + ' ' + data.uname + ': ' + data.msg));
-            });
-        </script>
-    </body>
+	<script src="/js/util.js"></script>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		var socket = io();
+
+		// Process form data when user submits form
+		$('form').submit(function() {
+			var data = {
+				uname: $('#user').val(),
+				msg: $('#message').val()
+			};
+			// Send an event to the server
+			socket.emit('chat_message', data);
+			$('#message').val('');
+			return false;
+		});
+
+		// Display messages received by the server
+		socket.on('chat_message', function(data) {
+			$('#messagesDisplay').append($('<li>').text(timestamp() + ' ' + data.uname + ': ' + data.msg));
+		});
+	</script>
+</body>
 </html>
