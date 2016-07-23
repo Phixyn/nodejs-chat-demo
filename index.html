@@ -12,7 +12,7 @@
 
 	<div id="content-wrapper">
 		<div id="chat-box">
-			<ul id="messagesDisplay"></ul>
+			<ul id="chat-msgs"></ul>
 			<form action="">
 				<input id="user" />
 				<input id="message" autocomplete="off" />
@@ -45,7 +45,7 @@
 
 		// Display messages received by the server
 		socket.on('chat_message', function(data) {
-			$('#messagesDisplay').append($('<li>').text(timestamp() + ' ' + data.uname + ': ' + data.msg));
+			$('#chat-msgs').append($('<li>').text(timestamp() + ' ' + data.uname + ': ' + data.msg));
 		});
 	</script>
 </body>
