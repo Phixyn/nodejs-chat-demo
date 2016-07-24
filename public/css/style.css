@@ -106,6 +106,12 @@ img {
 	padding-bottom: 2%;
 }
 
+#login-display p {
+	font-size: 1.2em;
+	color: #DD0000;
+	margin-top: 1.5%;
+}
+
 #login-form {
 	display: inline-block;
 	width: 40%;

@@ -14,13 +14,15 @@
 				<input id="username" /> <br />
 				<button>Join chat</button>
 			</form>
+
+			<p id="login-error-msg"></p>
 		</div> <!-- #login-display -->
 	</div> <!-- #login-wrapper -->
 
 	<div id="content-wrapper">
 		<div id="chat-box">
 			<ul id="chat-msg-list"></ul>
-			<form action="">
+			<form action="" id="chat-msg-form">
 				<input id="user" />
 				<input id="message" autocomplete="off" />
 				<button>Send</button>
@@ -38,8 +40,28 @@
 	<script>
 		var socket = io();
 
-		// Process form data when user submits form
-		$('form').submit(function() {
+		// Process username form user submits it
+		$('#login-form').submit(function(evt) {
+			// Prevent default event behaviour
+			evt.preventDefault();
+			// Send login event to server
+			socket.emit('user_login', $('#username').val(),
+			function(data){
+				// Callback to validate username
+				if (data) {
+					// If username is valid, hide login display and show chat
+					$('#login-wrapper').hide();
+					$('#content-wrapper').show();
+
+				}
+				else {
+					$('#login-error-msg').append('That nickname is already being used. Please choose a different one.');
+				}
+			});
+			$('#username').val('');
+		});
+		// Process chat form data when user submits it
+		$('#chat-msg-form').submit(function() {
 			var data = {
 				uname: $('#user').val(),
 				msg: $('#message').val()

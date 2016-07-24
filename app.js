@@ -1,9 +1,10 @@
-var express = require('express'),
-	app = express(),
-	http = require('http').Server(app),
-	io = require('socket.io')(http);
-
+var express = require('express');
+var	app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 var util = require('./lib/util.js');
+
+var userList = [];
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/index.html');
@@ -15,6 +16,19 @@ io.on('connection', function(socket) {
     socket.on('disconnect', function() {
         console.log(util.timestamp() + '[INFO] A user has disconnected.');
     });
+
+	socket.on('user_login', function(data, callback) {
+		if (userList.indexOf(data) != -1) {
+			callback(false);
+		}
+		else {
+			callback(true);
+			// Store nickname in client's socket
+			socket.nickname = data;
+			userList.push(data);
+			io.emit('users_list', userList);
+		}
+	});
 
     socket.on('chat_message', function(data) {
         console.log(util.timestamp() + '[CHAT] ' + data.uname + ': ' + data.msg);
