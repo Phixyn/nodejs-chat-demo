@@ -73,11 +73,6 @@ img {
 	max-width: 100%;
 }
 
-/* Make parent element automatically expand to child elements' heights */
-.parent-clear {
-	clear: both;
-}
-
 /* -----------------------------------
 	LOGIN WRAPPER
 ----------------------------------- */
@@ -152,7 +147,9 @@ img {
 
 #chat-msg-list {
 	clear: both;
+	height: 100%;
 	list-style-type: none;
+	overflow: auto;
 }
 
 #chat-msg-list li {
@@ -163,7 +160,7 @@ img {
 	background: #EEEEEE;
 }
 
-#chat-box form {
+#chat-msg-form {
 	background: #000;
 	padding: 3px;
 	position: absolute;
@@ -171,14 +168,14 @@ img {
 	width: 100%;
 }
 
-#chat-box form input {
+#chat-msg-form input {
 	border: 0;
 	padding: 10px;
 	width: 90%;
 	margin-right: .5%;
 }
 
-#chat-box form button {
+#chat-msg-form button {
 	width: 9%;
 	background-color: #82E0FF;
 	border: none;
@@ -190,8 +187,12 @@ img {
 ----------------------------------- */
 
 #user-list {
-	background-color: #300030;
+	background-color: #DDDDDD;
+	font-size: 1.2em;
+	word-wrap: break-word;
+	line-height: 1.5;
 	float: right;
 	width: 15%;
 	height: 100%;
+	padding: 2%;
 }
