@@ -13,18 +13,14 @@ app.get('/', function(req, res) {
 io.on('connection', function(socket) {
     console.log(util.timestamp() + '[INFO] A user has connected!');
 
-    socket.on('disconnect', function() {
-        console.log(util.timestamp() + '[INFO] A user has disconnected.');
-    });
-
 	socket.on('user_login', function(data, callback) {
 		if (userList.indexOf(data) != -1) {
 			callback(false);
 		}
 		else {
 			callback(true);
-			// Store nickname in client's socket
-			socket.nickname = data;
+			// Store username in client's socket
+			socket.username = data;
 			userList.push(data);
 			// Send an event to connected clients with list of connected users
 			io.emit('users_list', userList);
@@ -34,6 +30,17 @@ io.on('connection', function(socket) {
     socket.on('chat_message', function(data) {
         console.log(util.timestamp() + '[CHAT] ' + data.uname + ': ' + data.msg);
         io.emit('chat_message', data);
+    });
+	
+    socket.on('disconnect', function() {
+        console.log(util.timestamp() + '[INFO] A user has disconnected.');
+		if (!socket.username) return false;
+		console.log(util.timestamp() + '[INFO] ' + socket.username +
+			' has left the room.');
+		// Remove username from user list
+		userList.splice(userList.indexOf(socket.username), 1);
+		// Send updated user list to connected clients
+		io.emit('users_list', userList);
     });
 });
 
