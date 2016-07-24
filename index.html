@@ -44,6 +44,7 @@
 		$('#login-form').submit(function(evt) {
 			// Prevent default event behaviour
 			evt.preventDefault();
+			$('#login-error-msg').html('');
 			// Send login event to server
 			socket.emit('user_login', $('#username').val(),
 			function(data){
@@ -61,7 +62,8 @@
 			$('#username').val('');
 		});
 		// Process chat form data when user submits it
-		$('#chat-msg-form').submit(function() {
+		$('#chat-msg-form').submit(function(evt) {
+			evt.preventDefault();
 			var data = {
 				uname: $('#user').val(),
 				msg: $('#message').val()
@@ -76,6 +78,16 @@
 		socket.on('chat_message', function(data) {
 			$('#chat-msg-list').append($('<li>').text(timestamp() + ' ' + data.uname + ': ' + data.msg));
 		});
+
+		// Display/update list of users connected to the server
+		socket.on('users_list', function(data) {
+			var usersHtml = '';
+			data.forEach(function(user) {
+				usersHtml += user + ' <br />';
+			});
+			$('#user-list').html(usersHtml);
+		});
+
 	</script>
 </body>
 </html>

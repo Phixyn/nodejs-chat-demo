@@ -26,6 +26,7 @@ io.on('connection', function(socket) {
 			// Store nickname in client's socket
 			socket.nickname = data;
 			userList.push(data);
+			// Send an event to connected clients with list of connected users
 			io.emit('users_list', userList);
 		}
 	});
