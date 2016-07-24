@@ -7,12 +7,19 @@
 <body>
 	
 	<div id="login-wrapper">
-		
+		<div id="login-display">
+			<h1>Choose a nickname</h1>
+
+			<form action="" id="login-form">
+				<input id="username" /> <br />
+				<button>Join chat</button>
+			</form>
+		</div> <!-- #login-display -->
 	</div> <!-- #login-wrapper -->
 
 	<div id="content-wrapper">
 		<div id="chat-box">
-			<ul id="chat-msgs"></ul>
+			<ul id="chat-msg-list"></ul>
 			<form action="">
 				<input id="user" />
 				<input id="message" autocomplete="off" />
@@ -45,7 +52,7 @@
 
 		// Display messages received by the server
 		socket.on('chat_message', function(data) {
-			$('#chat-msgs').append($('<li>').text(timestamp() + ' ' + data.uname + ': ' + data.msg));
+			$('#chat-msg-list').append($('<li>').text(timestamp() + ' ' + data.uname + ': ' + data.msg));
 		});
 	</script>
 </body>
