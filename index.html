@@ -74,6 +74,15 @@
 			$('#chat-msg-list').append($('<li>').text(timestamp() + ' ' + data.user + ': ' + data.msg));
 		});
 
+		// Display system messages
+		socket.on('user_join', function(data) {
+			$('#chat-msg-list').append($('<li>').text(timestamp() + ' ' + data + ' has joined the channel.'));
+		});
+
+		socket.on('user_leave', function(data) {
+			$('#chat-msg-list').append($('<li>').text(timestamp() + ' ' + data + ' has left the channel.'));
+		});
+
 		// Display/update list of users connected to the server
 		socket.on('users_list', function(data) {
 			var usersHtml = '';
