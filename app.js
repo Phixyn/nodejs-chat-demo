@@ -28,8 +28,8 @@ io.on('connection', function(socket) {
 	});
 
     socket.on('chat_message', function(data) {
-        console.log(util.timestamp() + '[CHAT] ' + data.uname + ': ' + data.msg);
-        io.emit('chat_message', data);
+        console.log(util.timestamp() + '[CHAT] ' + socket.username + ': ' + data);
+        io.emit('chat_message', {user: socket.username, msg: data});
     });
 	
     socket.on('disconnect', function() {

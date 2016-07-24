@@ -23,7 +23,6 @@
 		<div id="chat-box">
 			<ul id="chat-msg-list"></ul>
 			<form action="" id="chat-msg-form">
-				<input id="user" />
 				<input id="message" autocomplete="off" />
 				<button>Send</button>
 			</form>
@@ -64,19 +63,15 @@
 		// Process chat form data when user submits it
 		$('#chat-msg-form').submit(function(evt) {
 			evt.preventDefault();
-			var data = {
-				uname: $('#user').val(),
-				msg: $('#message').val()
-			};
-			// Send an event to the server
-			socket.emit('chat_message', data);
+			// Send an event to the server with the chat message
+			socket.emit('chat_message', $('#message').val());
 			$('#message').val('');
 			return false;
 		});
 
 		// Display messages received by the server
 		socket.on('chat_message', function(data) {
-			$('#chat-msg-list').append($('<li>').text(timestamp() + ' ' + data.uname + ': ' + data.msg));
+			$('#chat-msg-list').append($('<li>').text(timestamp() + ' ' + data.user + ': ' + data.msg));
 		});
 
 		// Display/update list of users connected to the server
