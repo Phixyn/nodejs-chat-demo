@@ -30,6 +30,14 @@ io.on('connection', function(socket) {
 			io.emit('user_join', socket.username);
 			console.log(util.timestamp() + '[INFO] ' + socket.username +
 				' has joined the channel.');
+
+			// send last 5 messages to connecting client
+			db.each('SELECT * FROM (SELECT * FROM messages ORDER BY id DESC \
+				LIMIT 5) AS q ORDER BY q.id ASC', function(err, row) {
+					if (err) console.error(err);
+					socket.emit('chat_message', {user: row.username, msg: row.message});
+				}
+			);
 		}
 	});
 
@@ -38,8 +46,9 @@ io.on('connection', function(socket) {
 
 		db.run('INSERT INTO messages (username, message) VALUES (?, ?)',
 			[socket.username, data], function(err) {
-				console.error(err);
-			});
+				if (err) console.error(err);
+			}
+		);
 
         io.emit('chat_message', {user: socket.username, msg: data});
     });
