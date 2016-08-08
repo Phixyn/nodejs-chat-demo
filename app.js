@@ -3,6 +3,8 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var util = require('./lib/util.js');
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('./data/chat.db');
 
 var userList = [];
 
@@ -33,6 +35,12 @@ io.on('connection', function(socket) {
 
     socket.on('chat_message', function(data) {
         console.log(util.timestamp() + '[CHAT] ' + socket.username + ': ' + data);
+
+		db.run('INSERT INTO messages (username, message) VALUES (?, ?)',
+			[socket.username, data], function(err) {
+				console.error(err);
+			});
+
         io.emit('chat_message', {user: socket.username, msg: data});
     });
 	
