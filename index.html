@@ -37,25 +37,31 @@
 		</div> <!-- #login-display -->
 	</div> <!-- #login-wrapper -->
 
-	<div class="row">
-		<div class="col-md-3">.col-md-3</div>
-		<div class="col-md-6">.col-md-6</div>
-		<div class="col-md-3">.col-md-3</div>
-	</div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-2">This is a sidebar o.o</div>
 
-	<div id="content-wrapper">
-		<div id="chat-box">
-			<ul id="chat-msg-list"></ul>
-			<form action="" id="chat-msg-form">
-				<input id="message" autocomplete="off" />
-				<button>Send</button>
-			</form>
-		</div> <!-- #chat-box -->
-		
-		<div id="user-list">
+			<div class="col-md-8">
+				<div class="row">
+					<div id="chat-box">
+						<ul id="chat-msg-list"></ul>
+					</div> <!-- #chat-box -->
+				</div> <!-- .row -->
 
-		</div> <!-- #user-list -->
-	</div> <!-- #content-wrapper -->
+				<div class="row">
+					<form action="" id="chat-msg-form">
+						<input class="col-md-8" id="message" autocomplete="off" />
+						<button class="col-md-4">Send</button>
+					</form>
+				</div> <!-- .row -->
+			</div> <!-- .col-md-8 -->
+
+			<div class="col-md-2">
+				<ul id="user-list"></ul>
+			</div>
+		</div> <!-- .col-md-2 -->
+	</div> <!-- .container-fluid -->
+
 
     <!-- jQuery -->
 	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
@@ -78,7 +84,7 @@
 				if (data) {
 					// If username is valid, hide login display and show chat
 					$('#login-wrapper').hide();
-					$('#content-wrapper').show();
+					$('.container-fluid').show();
 
 				}
 				else {
@@ -114,7 +120,7 @@
 		socket.on('users_list', function(data) {
 			var usersHtml = '';
 			data.forEach(function(user) {
-				usersHtml += user + ' <br />';
+				usersHtml += '<li>' + user + '</li>';
 			});
 			$('#user-list').html(usersHtml);
 		});

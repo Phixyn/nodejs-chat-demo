@@ -125,23 +125,10 @@ img {
 }
 
 /* -----------------------------------
-	CONTENT WRAPPER
------------------------------------ */
-
-#content-wrapper {
-	clear: both;
-	display: none;
-	height: 100%;
-}
-
-/* -----------------------------------
 	CHAT BOX
 ----------------------------------- */
 
 #chat-box {
-	position: relative;
-	float:left;
-	width: 85%;
 	height: 100%;
 }
 
@@ -161,7 +148,6 @@ img {
 }
 
 #chat-msg-form {
-	background: #000;
 	padding: 3px;
 	position: absolute;
 	bottom: 0;
@@ -179,7 +165,7 @@ img {
 	width: 9%;
 	background-color: #82E0FF;
 	border: none;
-	padding: 10px;
+	padding: 5px;
 }
 
 /* -----------------------------------
@@ -187,12 +173,9 @@ img {
 ----------------------------------- */
 
 #user-list {
-	background-color: #DDDDDD;
 	font-size: 1.2em;
 	word-wrap: break-word;
 	line-height: 1.5;
 	float: right;
-	width: 15%;
-	height: 100%;
 	padding: 2%;
 }

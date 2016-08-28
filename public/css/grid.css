@@ -1,7 +1,13 @@
+.container-fluid {
+    height: 100%;
+    display: none;
+}
+
 h4 {
     margin-top: 25px;
 }
 .row {
+    height: 100%;
     margin-bottom: 20px;
 }
 .row .row {
@@ -9,6 +15,7 @@ h4 {
     margin-bottom: 0;
 }
 [class*="col-"] {
+    height: 100%;
     padding-top: 15px;
     padding-bottom: 15px;
     background-color: #eee;
