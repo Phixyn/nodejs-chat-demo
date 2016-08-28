@@ -24,29 +24,22 @@
 </head>
 
 <body>
-	<div id="login-wrapper">
-		<div id="login-display">
-			<h1>Choose a nickname</h1>
+	<div class="container" id="login-wrapper">
+		<form class="form-signin" action="" id="login-form">
+			<h2 class="form-signin-heading">Please sign in</h2>
+			<input class="form-control" id="username" placeholder="Nickname" required autofocus /> <br />
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Join chat</button>
+		</form>
 
-			<form action="" id="login-form">
-				<input id="username" /> <br />
-				<button>Join chat</button>
-			</form>
-
-			<p id="login-error-msg"></p>
-		</div> <!-- #login-display -->
-	</div> <!-- #login-wrapper -->
+		<p id="login-error-msg"></p>
+	</div> <!-- .container #login-wrapper -->
 
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-2">This is a sidebar o.o</div>
 
 			<div class="col-md-8">
-				<div class="row">
-					<div id="chat-box">
-						<ul id="chat-msg-list"></ul>
-					</div> <!-- #chat-box -->
-				</div> <!-- .row -->
+				<ul id="chat-msg-list"></ul>
 
 				<div class="row">
 					<form action="" id="chat-msg-form">
@@ -58,8 +51,8 @@
 
 			<div class="col-md-2">
 				<ul id="user-list"></ul>
-			</div>
-		</div> <!-- .col-md-2 -->
+			</div> <!-- .col-md-2 -->
+		</div>
 	</div> <!-- .container-fluid -->
 
 
