@@ -51,6 +51,7 @@ img {
 
 #chat-msg-form {
 	height: 6%;
+	min-height: 40px;
 	width: 100%;
 	padding: 3px;
 	position: absolute;
