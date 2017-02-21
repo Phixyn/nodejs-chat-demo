@@ -1,7 +1,7 @@
 CREATE TABLE `messages`
 (
-	`id`		INTEGER,
+	`id`		INTEGER PRIMARY KEY AUTOINCREMENT,
+	`username`  TEXT,
 	`message`	TEXT,
-    `username`  TEXT,
-	PRIMARY KEY(id)
+    `timestamp` TEXT
 );
