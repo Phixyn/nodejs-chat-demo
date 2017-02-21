@@ -44,7 +44,8 @@ io.on('connection', function(socket) {
     socket.on('chat_message', function(data) {
         console.log(util.timestamp() + '[CHAT] ' + socket.username + ': ' + data);
 
-		db.run('INSERT INTO messages (username, message) VALUES (?, ?)',
+		db.run('INSERT INTO messages (username, message, timestamp) VALUES (?, ?,\
+			strftime(\'%Y-%m-%dT%H:%M:%S\'))',
 			[socket.username, data], function(err) {
 				if (err) console.error(err);
 			}
