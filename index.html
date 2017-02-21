@@ -64,14 +64,21 @@
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
 		var socket = io();
+		var $loginForm = $('#login-form');
+		var $loginErrorMsg = $('#login-error-msg');
+		var $usernameInput = $('#username');
+		var $messageForm = $('#chat-msg-form');
+		var $messageInput = $('#message');
+		var $messageList = $('#chat-msg-list');
+		var $userList = $('#user-list');
 
 		// Process username form user submits it
-		$('#login-form').submit(function(evt) {
+		$loginForm.submit(function(evt) {
 			// Prevent default event behaviour
 			evt.preventDefault();
-			$('#login-error-msg').html('');
+			$loginErrorMsg.html('');
 			// Send login event to server
-			socket.emit('user_login', $('#username').val(),
+			socket.emit('user_login', $usernameInput.val(),
 			function(data){
 				// Callback to validate username
 				if (data) {
@@ -81,32 +88,33 @@
 
 				}
 				else {
-					$('#login-error-msg').append('That nickname is already being used. Please choose a different one.');
+					$loginErrorMsg.append('That nickname is already being used. Please choose a different one.');
 				}
 			});
-			$('#username').val('');
+			$usernameInput.val('');
 		});
+
 		// Process chat form data when user submits it
-		$('#chat-msg-form').submit(function(evt) {
+		$messageForm.submit(function(evt) {
 			evt.preventDefault();
 			// Send an event to the server with the chat message
-			socket.emit('chat_message', $('#message').val());
-			$('#message').val('');
+			socket.emit('chat_message', $messageInput.val());
+			$messageInput.val('');
 			return false;
 		});
 
 		// Display messages received by the server
 		socket.on('chat_message', function(data) {
-			$('#chat-msg-list').append($('<li>').text(timestamp() + ' ' + data.user + ': ' + data.msg));
+			$messageList.append($('<li>').text(timestamp() + ' ' + data.user + ': ' + data.msg));
 		});
 
 		// Display system messages
 		socket.on('user_join', function(data) {
-			$('#chat-msg-list').append($('<li>').text(timestamp() + ' ' + data + ' has joined the channel.'));
+			$messageList.append($('<li>').text(timestamp() + ' ' + data + ' has joined the channel.'));
 		});
 
 		socket.on('user_leave', function(data) {
-			$('#chat-msg-list').append($('<li>').text(timestamp() + ' ' + data + ' has left the channel.'));
+			$messageList.append($('<li>').text(timestamp() + ' ' + data + ' has left the channel.'));
 		});
 
 		// Display/update list of users connected to the server
@@ -115,9 +123,8 @@
 			data.forEach(function(user) {
 				usersHtml += '<li>' + user + '</li>';
 			});
-			$('#user-list').html(usersHtml);
+			$userList.html(usersHtml);
 		});
-
 	</script>
 </body>
 </html>
